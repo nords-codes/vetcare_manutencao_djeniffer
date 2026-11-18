@@ -7,11 +7,17 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
  $autor=trim($_POST['autor']??'');$comentario=trim($_POST['comentario']??'');$novo=$_POST['status']??$c['status'];$responsavel=trim($_POST['responsavel']??'');
  if($autor===''||$comentario==='')$erro='Informe seu nome e o comentário.';
  else{
-  $pdo->beginTransaction();
-  $u=$pdo->prepare("UPDATE chamados SET status=?,responsavel=? WHERE id=?");$u->execute([$novo,$responsavel,$id]);
-  $h=$pdo->prepare("INSERT INTO historico_chamados(chamado_id,autor,comentario,status_anterior,status_novo) VALUES(?,?,?,?,?)");
-  $h->execute([$id,$autor,$comentario,$c['status'],$novo]);
-  $pdo->commit();header('Location: ver.php?id='.$id);exit;
+  try {
+   $pdo->beginTransaction();
+   $u=$pdo->prepare("UPDATE chamados SET status=?,responsavel=? WHERE id=?");$u->execute([$novo,$responsavel,$id]);
+   $h=$pdo->prepare("INSERT INTO historico_chamados(chamado_id,autor,comentario,status_anterior,status_novo) VALUES(?,?,?,?,?)");
+   $h->execute([$id,$autor,$comentario,$c['status'],$novo]);
+   $pdo->commit();
+   header('Location: ver.php?id='.$id);exit;
+  } catch (PDOException $e) {
+   if($pdo->inTransaction()) $pdo->rollBack();
+   $erro='Não foi possível salvar a atualização. Tente novamente.';
+  }
  }
 }
 $h=$pdo->prepare("SELECT * FROM historico_chamados WHERE chamado_id=? ORDER BY criado_em DESC");$h->execute([$id]);$historico=$h->fetchAll();
