@@ -4,7 +4,7 @@ $db   = 'vetcare_djeniffer';
 $user = 'root';
 $pass = '';
 $charset = 'utf8mb4';
-$dsn = "mysql:host=$host;dbname=$db;port=3307;charset=$charset";
+$dsn = "mysql:host=$host;dbname=$db;port=3306;charset=$charset";
 try {
     $pdo = new PDO($dsn, $user, $pass, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

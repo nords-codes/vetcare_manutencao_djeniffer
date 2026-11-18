@@ -3,10 +3,10 @@
 Projeto didático em PHP + MySQL/MariaDB para execução local no XAMPP.
 
 ## Instalação
-1. Copie a pasta `vetcare_manutencao` para `C:\xampp\htdocs\`.
+1. Copie a pasta `vetcare_manutencao_djeniffer` para `C:\xampp\htdocs\`.
 2. Inicie Apache e MySQL no XAMPP.
 3. Acesse `http://localhost/phpmyadmin` e importe `database/vetcare.sql`.
-4. Acesse `http://localhost/vetcare_manutencao/`.
+4. Acesse `http://localhost/vetcare_manutencao_djeniffer/`.
 5. Entre com:
    - Usuário: `admin`
    - Senha: `admin123`
